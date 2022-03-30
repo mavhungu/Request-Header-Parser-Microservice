@@ -1,0 +1,28 @@
+{
+  "name": "request-header-parser-microservice",
+  "version": "1.0.0",
+  "description": "Request Header Parser Microservice",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js -e js, hbs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mavhungu/Request-Header-Parser-Microservice.git"
+  },
+  "keywords": [],
+  "author": "Mavhungu Ronewa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mavhungu/Request-Header-Parser-Microservice/issues"
+  },
+  "homepage": "https://github.com/mavhungu/Request-Header-Parser-Microservice#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "hbs": "^4.2.0"
+  }
+}
