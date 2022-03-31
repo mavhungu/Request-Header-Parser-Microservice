@@ -2,7 +2,7 @@ const whoamicontroller = async(req, res)=>{
     const ipaddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const language = req.headers['accept-language'];
     const software = req.headers['user-agent'];
-    res.render('',{
+    res.render('whoami',{
         ipaddress, language, software
     })
 }
