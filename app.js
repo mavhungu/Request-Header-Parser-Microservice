@@ -1,30 +1,41 @@
-require('dotenv').config()
-const express = require('express')
-const path = require('path')
-const cors = require('cors')
-const hbs = require('hbs')
+// server.js
+// where your node app starts
 
-const home = require('./routes/home')
-const hello = require('./routes/hello')
-const whoami = require('./routes/whoami')
+// init project
+require('dotenv').config();
+var express = require('express');
+var app = express();
 
-const app = express()
-const port = process.env.PORT || 3001
+// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
+// so that your API is remotely testable by FCC 
+var cors = require('cors');
+app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-app.set('view engine', 'hbs')
-app.set('views',path.join(__dirname,'templates/views'))
-hbs.registerPartials(path.join(__dirname,'templates/partials'))
+// http://expressjs.com/en/starter/static-files.html
+app.use(express.static('public'));
 
-app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-app.use(express.static(path.join(__dirname,'public')))
-
-app.use('/',home)
-app.use("/api/hello",hello)
-app.use('/api/whoami',whoami)
+// http://expressjs.com/en/starter/basic-routing.html
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
+});
 
 
-app.listen(port,()=>{
-    console.log(`Up and running on port ${port}`)
+// your first API endpoint... 
+app.get("/api/hello", function (req, res) {
+  res.json({greeting: 'hello API'});
+});
+
+app.get('/api/whoami', (req, res) => {
+  const ipaddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  const language = req.headers['accept-language'];
+  const software = req.headers['user-agent'];
+
+  res.json({ ipaddress, language, software});
 })
+
+
+
+// listen for requests :)
+var listener = app.listen(process.env.PORT || 3000, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
